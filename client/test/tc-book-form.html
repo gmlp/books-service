@@ -29,7 +29,7 @@
 
 <script>
 
-    describe('tc-book-form', function() {
+    describe('_data property', function() {
 
         var myEl;
 
@@ -37,8 +37,9 @@
             myEl = fixture('fixture');
         });
 
-        it('false test', function() {
-            assert.isTrue(true);
+        it('is defined', function(){
+            assert.isDefined(myEl._data);
+            assert.isObject(myEl._data);
         });
 
     });

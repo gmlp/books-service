@@ -31,17 +31,152 @@
 
     describe('_data property', function() {
 
-        var myEl;
+        var element;
 
         before(function() {
-            myEl = fixture('fixture');
+            element = fixture('fixture');
         });
 
         it('is defined', function(){
-            assert.isDefined(myEl._data);
-            assert.isObject(myEl._data);
+            assert.isDefined(element._data);
+            assert.isObject(element._data);
+        });
+    });
+
+    describe('_id element', function() {
+
+        var element;
+
+        before(function() {
+            element = fixture('fixture');
         });
 
+        it('is defined', function(){
+            assert.isDefined(element.$._id);
+        });
+
+        it('sets label', function(){
+            assert.equal(element.$._id.label, 'ID');
+        });
+
+        it('binds to _data._id property', function(){
+            element._data = {_id: 123};
+            assert.equal(element.$._id.value, element._data._id);
+        });
+
+        it('sets auto-validate', function(){
+            assert.isTrue(element.$._id.autoValidate);
+        });
+
+        it('accepts only numbers', function(){
+            element.$._id.value = 'asdf';
+            assert.isFalse(element.$._id.validate())
+        });
+
+        it('does not accept leading 0', function(){
+            element.$._id.value = '0123';
+            assert.isFalse(element.$._id.validate());
+        });
+
+        it('is required', function(){
+            element.$._id.value = '';
+            assert.isFalse(element.$._id.validate());
+        });
+        it('sets error message', function(){
+            assert.equal(element.$._id.errorMessage, 'Must be a number');
+        });
+    });
+    describe('_title element', function(){
+
+        var element;
+
+        before(function() {
+            element = fixture('fixture');
+        });
+        it('is defined', function(){
+            assert.isDefined(element.$.title);
+        });
+        it('set label', function(){
+            assert.equal(element.$.title.label, 'Title');
+        });
+        it('binds to _data.title property', function(){
+            element._data = {title: 'some Title'};
+            assert.equal(element.$.title.value, element._data.title);
+        });
+        it('sets auto-validate', function(){
+            assert.isTrue(element.$.title.autoValidate);
+        });
+        it('is required', function(){
+            element.$.title.value = '';
+            assert.isFalse(element.$.title.validate());
+        });
+        it('sets error message', function(){
+            assert.equal(element.$.title.errorMessage, 'title is required');
+        });
+    });
+    describe('description element', function(){
+
+        var element;
+
+        before(function() {
+            element = fixture('fixture');
+        });
+        it('is defined', function(){
+            assert.isDefined(element.$.description)
+        });
+        it('set label', function(){
+            assert.equal(element.$.description.label, 'Description');
+        });
+        it('binds to _data.description property', function(){
+            element._data = {description: 'some description'};
+            assert.equal(element.$.description.value, element._data.description);
+        });
+    });
+    describe('requestUrl', function(){
+
+        var element;
+
+        before(function() {
+            element = fixture('fixture');
+        });
+        it('is defined', function(){
+            assert.isDefined(element.requestUrl);
+            assert.isString(element.requestUrl);
+            assert.equal(element.requestUrl, '/api/v1/books');
+        });
+    });
+    describe('putAjax element', function(){
+
+        var element;
+
+        before(function() {
+            element = fixture('fixture');
+        });
+        it('is defined', function(){
+            assert.isDefined(element.$.putAjax);
+        });
+        it('set method to PUT', function(){
+            assert.equal(element.$.putAjax.method, 'PUT');
+        });
+        it('sets content-type', function(){
+            assert.equal(element.$.putAjax.contentType, 'application/json');
+        });
+        it('binds url to requestUrl property', function(){
+            element.requestUrl = '/api/my/service'
+            assert.equal(element.$.putAjax.url, element.requestUrl);
+        });
+    });
+    describe('form element', function(){
+
+        var element;
+
+        before(function() {
+            element = fixture('fixture');
+        });
+
+        it('form element', function(){
+            assert.isDefined(element.$.form);
+        });
     });
 </script>
 

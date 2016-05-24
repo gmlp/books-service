@@ -2,6 +2,34 @@
     <style>
     </style>
     <template>
+        <form id="form">
+            <paper-input id="_id"
+                label="ID"
+                value="{{_data._id}}"
+                auto-validate
+                pattern="[1-9][0-9]*"
+                required
+                error-message="Must be a number">
+            </paper-input>
+            <paper-input id="title"
+                label="Title"
+                value="{{_data.title}}"
+                auto-validate
+                required
+                error-message="title is required">
+            </paper-input>
+            <paper-input id="description"
+                label="Description"
+                value="{{_data.description}}">
+            </paper-input>
+            <iron-ajax id="putAjax"
+                    method="PUT"
+                    content-type="application/json"
+                    url="[[requestUrl]]">
+            </iron-ajax>
+        </form>
+    </template>
+</dom-module>
     </template>
 </dom-module>
 <script>
@@ -12,6 +40,10 @@
                 _data: {
                     type: Object,
                     value: {}
+                },
+                requestUrl:{
+                    type: String,
+                   value: '/api/v1/books'
                 }
             }
         });

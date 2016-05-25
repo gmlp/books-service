@@ -105,6 +105,24 @@
                 assert.equal(element.$.title.errorMessage, 'title is required');
             });
         });
+        describe('author element', function(){
+            it('is defined', function(){
+                 assert.isDefined(element.$.author);
+            });
+            it('sets label', function(){
+                assert.equal(element.$.author.label, 'Author');
+            });
+            it('binds to _data.author property', function(){
+                element._data = {author: 'Donald'};
+                assert.equal(element.$.author.value,element._data.author);
+            });
+            it('sets auto-validate', function(){
+                assert.isTrue(element.$.author.autoValidate);
+            });
+            it('sets error message', function(){
+                assert.equal(element.$.author.errorMessage, 'Author is required');
+            });
+        });
         describe('description element', function(){
 
             it('is defined', function(){

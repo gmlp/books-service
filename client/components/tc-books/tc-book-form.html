@@ -39,13 +39,22 @@
             properties: {
                 _data: {
                     type: Object,
-                    value: {}
+                    value: {},
                 },
                 requestUrl:{
                     type: String,
-                   value: '/api/v1/books'
+                   value: '/api/v1/books',
+                },
+            },
+            _submit: function() {
+                if (this.$.form.checkValidity()){
+                    this.set('_data._id', parseInt(this._data._id));
+                    this.$.putAjax.body = JSON.stringify(this._data);
+                    this.$.putAjax.generateRequest();
+                } else {
+                    this._handleError('At least one field is invalid.');
                 }
-            }
+            },
         });
     })();
 </script>

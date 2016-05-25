@@ -227,6 +227,72 @@
                  assert.equal(element.errorText, expected)
             });
         });
+        describe('deleteAjax element', function(){
+            it('is defined', function(){
+                assert.isDefined(element.$.deleteAjax);
+            });
+            it('sets method to DELETE', function(){
+                assert.equal(element.$.deleteAjax.method, 'DELETE');
+            });
+        });
+        describe('_delete function', function(){
+            it('is defined', function(){
+                assert.isDefined(element._delete);
+            });
+            it('sets deleteAjax.url', function(){
+                var id= 749;
+                element._data = {_id: id};
+                element._delete();
+                assert.equal(element.$.deleteAjax.url, element.requestUrl + '/_id/' + id);
+            });
+            it('calls deleteAjax.generateRequest', function(){
+                var el = fixture('fixture');
+                el.$.deleteAjax.generateRequest = sinon.mock();
+                el._delete();
+                sinon.assert.calledOnce(el.$.deleteAjax.generateRequest);
+            });
+        });
+        describe('deleteText property', function(){
+            it('is defined', function(){
+                assert.isString(element.deleteText);
+                assert.equal(element.deleteText, 'Delete');
+            });
+        });
+        describe('delete element', function(){
+            it('is defined', function(){
+                assert.isDefined(element.$.delete);
+            });
+            it('bind to deleteText property', function(){
+                element.deleteText = 'deleted';
+                assert.equal(element.$.delete.textContent.trim(), element.deleteText);
+            });
+            it('calls _delete function when clicked', function(){
+                var el = fixture('fixture');
+                el._delete = sinon.mock();
+                el.$.delete.click();
+                sinon.assert.calledOnce(el._delete);
+            });
+        });
+        describe('submitText property', function(){
+            it('is defined', function(){
+                assert.isString(element.submitText);
+                assert.equal(element.submitText, 'Submit')
+            });
+        });
+        describe('submit element', function(){
+            it('is defined', function(){
+                assert.isDefined(element.$.submit);
+            });
+            it('binds text to submitText property', function(){
+                assert.equal(element.$.submit.textContent.trim(), element.submitText);
+            });
+            it('calls _submit function when clicked', function(){
+                var el = fixture('fixture');
+                el._submit = sinon.mock();
+                el.$.submit.click();
+                sinon.assert.calledOnce(el._submit);
+            });
+        });
     });
 </script>
 

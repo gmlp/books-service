@@ -34,6 +34,7 @@
                     content-type="application/json"
                     url="[[requestUrl]]">
             </iron-ajax>
+            <paper-toast id="toast" text="[[errorText]]"></paper-toast>
         </form>
     </template>
 </dom-module>
@@ -52,6 +53,10 @@
                     type: String,
                    value: '/api/v1/books',
                 },
+                errorText: {
+                     type: String,
+                    value: 'Something went wrong',
+                },
             },
             _submit: function() {
                 if (this.$.form.checkValidity()){
@@ -61,6 +66,10 @@
                 } else {
                     this._handleError('At least one field is invalid.');
                 }
+            },
+            _handleError: function(text){
+                this.errorText = text;
+                this.$.toast.show();
             },
         });
     })();

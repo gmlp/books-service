@@ -194,6 +194,39 @@
                  sinon.assert.calledWith(el._handleError, 'At least one field is invalid.');
             });
         });
+        describe('errorText property', function(){
+            it('is defined', function(){
+                assert.isDefined(element.errorText);
+                assert.isString(element.errorText);
+                assert.equal(element.errorText, 'Something went wrong');
+            });
+        });
+        describe('toast element', function(){
+            it('is defined', function(){
+                assert.isDefined(element.$.toast);
+            });
+            it('bind text to error Text property', function(){
+                element.errorText = "error message";
+                assert.equal(element.$.toast.text, element.errorText);
+            });
+        });
+
+        describe('_handleError function', function(){
+            it('is defined', function(){
+                assert.isDefined(element._handleError);
+            });
+            it('call toast show method', function(){
+                var el = fixture('fixture');
+                el.$.toast.show = sinon.mock();
+                el._handleError();
+                sinon.assert.calledOnce(el.$.toast.show);
+            });
+            it('sets error text property', function(){
+                 var expected = 'Panic!!!';
+                 element._handleError(expected);
+                 assert.equal(element.errorText, expected)
+            });
+        });
     });
 </script>
 
